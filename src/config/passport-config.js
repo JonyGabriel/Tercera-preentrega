@@ -30,17 +30,17 @@ const initializePassport = () => {
         clientSecret: CLIENTSECRET,
         callbackURL: CALLBACKURL
     }, async (accessToken, refreshToken, profile, done) => {
-        console.log(profile);
+        console.log("Profile: " + profile);
 
         try {
             let user = await userModel.findOne({ email: profile._json.email })
             if (!user) {
-                 user = {
+                    user = {
                     name: profile._json.name,
                     last_name: 'Last name Github',
                     email: profile._json.email,
                     age: 1,
-                    password: 'Pasword Git hub'
+                    password: 'Password Git hub'
                 }
 
                 const result= await userModel.create(user);

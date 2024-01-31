@@ -15,7 +15,8 @@ const cartSchema = new mongoose.Schema({
                 }
             },
         ],
-    }
+    },
+    userCart: {type:String, unique: true}
 });
 
 cartSchema.pre('findOne', function(){

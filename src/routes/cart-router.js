@@ -4,10 +4,12 @@ import passport from 'passport';
 import { authorization } from '../middlewares/middlewares.js';
 
 const router = Router()
-
+//edite mi codigo otra vez
 //-------------------------------------------------------------------------------------
 
-router.post('/', createCart );
+router.post('/',
+passport.authenticate('current', { session: false }),
+createCart );
 
 //-------------------------------------------------------------------------------------
 

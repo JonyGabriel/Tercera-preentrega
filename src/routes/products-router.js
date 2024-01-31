@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getProducts, productId, createProduct, updateProduct, deletProduct} from '../controllers/products_controllers.js';
-import { authorization } from '../middlewares/middlewares.js';
+import { authorization} from '../middlewares/middlewares.js';
 import { uploader } from '../utils/multer.js';
 import passport from 'passport';
 
@@ -10,7 +10,6 @@ const router = Router();
 
 router.get('/',
 passport.authenticate('current', { session: false }),
-authorization('admin'),
 getProducts
 )
 

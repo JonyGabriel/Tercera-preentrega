@@ -19,3 +19,9 @@ export const current= async (req, res) => {
 export const githubcallback= (req, res) => {
     res.cookie('cookieUS', req.user.token).redirect('/');
 }
+
+export const userId= async (req, res) =>{
+    const {user}= req.user;
+
+    res.send({result:user._id})
+}

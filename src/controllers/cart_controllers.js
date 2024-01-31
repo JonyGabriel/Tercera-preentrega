@@ -4,11 +4,12 @@ import { CartRepository, TicketRepository } from "../services/index.js";
 
 export const createCart = (req, res) => {
 
+    const {user}= req.user;
     try {
 
-        const cartList = CartRepository.createCart();
+        const cart = CartRepository.createCart(user._id);
 
-        res.send({ status: "Cart created" })
+        res.send({ status: "success", payload: cart })
 
     } catch (error) {
         return error
@@ -23,11 +24,11 @@ export const getCart = async (req, res) => {
         const idCart = req.params.cid;
         const cartFound = await CartRepository.getCartById(idCart);
 
-        if (!cartFound) return (res.status(400).send({ status: "Error cart not founded" }));
+        if (!cartFound) return (res.status(400).send(false));
 
         return res.send({ status: cartFound })
     } catch (error) {
-
+        return false
     }
 }
 

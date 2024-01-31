@@ -18,10 +18,16 @@ class CartManagerDB {
 
     //--------------------------------------------------------------------------
 
-    async createCart() {
+    async createCart(userid) {
 
         try {
-            const result = await cartModel.create({});
+
+            const cartToAdd = {
+                products: [],
+                userCart: userid
+            }
+
+            const result = await cartModel.create(cartToAdd);
 
             return result
         } catch (error) {
@@ -36,7 +42,7 @@ class CartManagerDB {
     async getCartById(id) {
 
         try {
-            const cart = await cartModel.findOne({ _id: id });
+            const cart = await cartModel.findOne({ userCart: id });
             return cart;
         } catch (error) {
             return error
@@ -50,7 +56,7 @@ class CartManagerDB {
         const products = new ProductManagerMDB();
 
         try {
-            const carrito = await cartModel.findOne({ _id: cid });
+            const carrito = await cartModel.findOne({ userCart: cid });
             const prod = await products.getProductById(pid);
 
             if (!prod) return 'Producto not found'
@@ -68,7 +74,7 @@ class CartManagerDB {
                 product.quantity++;
             }
 
-            await cartModel.updateOne({ _id: cid }, carrito);
+            await cartModel.updateOne({ userCart: cid }, carrito);
             return 'Se agrego el producto correctamente'
         } catch (error) {
             return error

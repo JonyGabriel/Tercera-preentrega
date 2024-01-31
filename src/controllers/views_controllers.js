@@ -83,7 +83,7 @@ export const cartUser= async (req,res)=>{
     
         const cart= new CartManagerDB();
     
-        const cartSearch= await cartModel.findOne({ _id: cid }).lean().exec();
+        const cartSearch= await cartModel.findOne({ userCart: cid }).lean().exec();
     
         if(!cartSearch) return res.status(400).send({error:'Cart not found'})
     
@@ -127,3 +127,4 @@ export const messages= async (req, res)=>{
 
     res.render('chat' );
 }
+
